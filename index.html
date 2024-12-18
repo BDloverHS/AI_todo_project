@@ -12,7 +12,7 @@
   </head>
   <body>
     <h1>나의 할 일</h1>
-    <form name="frmTodo" autocomplete="off">
+    <form name="frmTodo">
       <dl>
         <dt>작업 제목</dt>
         <dd>
@@ -21,11 +21,12 @@
         </dd>
       </dl>
       <dl>
+        <dt>마감일</dt>
         <dd>
-          <input type="date" name="deadline" placeholder="마감일" />
+          <input type="date" name="deadline" />
+          <div class="error dn" id="error-deadline"></div>
         </dd>
       </dl>
-
       <dl>
         <dt>작업 내용</dt>
         <dd>
