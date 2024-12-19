@@ -1,5 +1,6 @@
 const todo = {
   items: [], // 작업 목록
+
   // 작업 등록
   add(title, description, deadline) {
     const seq = Date.now();
@@ -7,6 +8,7 @@ const todo = {
 
     this.render(); // 화면 갱신
   },
+
   // 작업 삭제
   remove(seq) {
     // seq로 작업 목록 순서 번호(index) 조회
@@ -18,13 +20,14 @@ const todo = {
     // 화면 갱신
     this.render();
   },
+
   // 작업 목록 출력, 갱신
   render() {},
 };
 
 window.addEventListener("DOMContentLoaded", function () {
   // 양식 태그의 기본 동작 차단
-  frmTodo.addEventListener("submit", function (e) {
+  FrmTodo.addEventListener("submit", function (e) {
     e.preventDefault();
 
     /**
@@ -34,19 +37,12 @@ window.addEventListener("DOMContentLoaded", function () {
      */
     try {
       // 1. 필수 항목 검증 S
-      const requiredFields = {
-        title: "작업 제목을 입력하세요.",
-        deadline: "마감일을 입력하세요.",
-        description: "작업 내용을 입력하세요.",
-      };
-
-      for (const [field, message] of Object.entries(requiredFields)) {
+      for (conmst[(field, message)] of Object.entries(requiredFields)) {
         const value = frmTodo[field].value.trim();
         if (!value) {
           throw new Error(JSON.stringify({ field, message }));
         }
       }
-
       // 1. 필수 항목 검증 E
     } catch (err) {
       const { field, message } = JSON.parse(err.message);
@@ -59,6 +55,9 @@ window.addEventListener("DOMContentLoaded", function () {
         el.classList.remove("dn");
         el.focus();
       }
+      el.innerText = message;
+      el.classList.remove("dn");
+      el.focus();
     }
   });
 });
