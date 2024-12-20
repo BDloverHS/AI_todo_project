@@ -38,5 +38,22 @@
     </form>
 
     <ul class="items"></ul>
+
+    <!-- 화면에 보이지 않고 사용하기 위함 -->
+    <!-- #{} : 치환될 부분이라 대체해서 쓴 것 -->
+    <script type="text/html" id="tpl">
+      <li class="item" data-seq="#{seq}">
+        <div class="tit-wrap">
+          <span class="date">#{deadline}</span>
+          <span class="tit">#{title}</span>
+        </div>
+        <div class="description">
+          #{description}
+          <button type="button" class="remove">
+            <i class="xi-close"></i>
+          </button>
+        </div>
+      </li>
+    </script>
   </body>
 </html>
