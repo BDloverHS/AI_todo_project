@@ -1,16 +1,26 @@
 const todo = {
   tpl: null,
   items: [], // 작업 목록
+
   // 초기에 실행할 영역
   init() {
     // 템플릿 HTML 추출
     this.tpl = document.getElementById("tpl").innerHTML;
-  },
 
+    // 저장된 작업 목록 조회 및 출력
+    const data = localStorage.getItem("todos");
+    if (data) {
+      this.items = JSON.parse(data);
+    }
+
+    this.render();
+  },
   // 작업 등록
   add(title, description, deadline) {
     const seq = Date.now();
     this.items.push({ seq, title, description, deadline, done: false });
+
+    this.save(); // 추가된 작업 저장
 
     this.render(); // 화면 갱신
   },
@@ -21,6 +31,8 @@ const todo = {
 
     // splice로 해당 순서 번호 항목 제거
     this.items.splice(index, 1);
+
+    this.save(); // 작업 목록 저장
 
     // 화면 갱신
     this.render();
@@ -48,14 +60,29 @@ const todo = {
       titWrapEl.addEventListener("click", function () {
         todo.accodianView(this.parentElement);
       });
+
+      // 삭제 처리
+      const removeEl = itemEl.querySelector(".remove");
+      removeEl.addEventListener("click", function () {
+        if (confirm("정말 삭제하겠습니까?")) {
+          const { seq } = this.dataset;
+          todo.remove(seq);
+        }
+      });
     }
   },
-
   accodianView(el) {
     const items = document.querySelectorAll(".items > .item");
     items.forEach((item) => item.classList.remove("on"));
 
     el.classList.add("on");
+  },
+  /**
+   * items(할일 목록)를 localStorage로 저장
+   */
+  save() {
+    const data = JSON.stringify(this.items);
+    localStorage.setItem("todos", data);
   },
 };
 
