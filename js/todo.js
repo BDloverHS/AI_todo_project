@@ -79,7 +79,7 @@ const todo = {
       });
 
       // 작업 완료, 작업중 처리
-      const doneEls = document.getElementsByName("done");
+      const doneEls = itemEl.querySelectorAll("input[name^='done']");
       const itemIndex = this.items.findIndex((item) => item.seq === seq);
       for (const el of doneEls) {
         el.addEventListener("click", function () {
@@ -102,12 +102,14 @@ const todo = {
   save() {
     const data = JSON.stringify(this.items);
     localStorage.setItem("todos", data);
+    this.itemsSearched = null;
+    frmSearch.skey.value = "";
   },
   // 정렬
   sort(field, order) {
     this.items.sort((item1, item2) => {
       switch (field) {
-        case "dealine":
+        case "deadline":
           let gap = new Date(item2.deadline) - new Date(item1.deadline);
           return order === "desc" ? gap : -gap;
         default:
@@ -201,4 +203,18 @@ window.addEventListener("DOMContentLoaded", function () {
     todo.sort(field, order);
   });
   // 작업 목록 정렬 처리 E
+
+  // 키워드 검색 처리 S
+  frmSearch.skey.addEventListener("change", function () {
+    const skey = this.value.trim();
+    todo.itemsSearched = skey
+      ? todo.items.filter(
+          ({ title, description }) =>
+            title.includes(skey) || description.includes(skey)
+        )
+      : null;
+
+    todo.render();
+  });
+  // 키워드 검색 처리 E
 });
