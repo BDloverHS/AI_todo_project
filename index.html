@@ -37,21 +37,52 @@
       <button type="submit">등록하기</button>
     </form>
 
+    <form name="frmSearch" class="search-box">
+      정렬 :
+      <select name="sort">
+        <option value="seq_asc">등록순서(오름차순)</option>
+        <option value="seq_desc">등록순서(내림차순)</option>
+        <option value="deadline_asc">마감일(오름차순)</option> 
+        <option value="deadline_desc">마감일(내림차순)</option> 
+      </select>
+    </form>
+
     <ul class="items"></ul>
 
     <!-- 화면에 보이지 않고 사용하기 위함 -->
     <!-- #{} : 치환될 부분이라 대체해서 쓴 것 -->
     <script type="text/html" id="tpl">
-      <li class="item" data-seq="#{seq}">
+      <li class="item#{addClass}" data-seq="#{seq}">
         <div class="tit-wrap">
           <span class="date">#{deadline}</span>
           <span class="tit">#{title}</span>
         </div>
         <div class="description">
           #{description}
-          <button type="button" class="remove" data-seq="#{seq}">
-            <i class="xi-close"></i>
-          </button>
+          <div class="controlls">
+            <div class="done-wrap">
+              <input
+                type="radio"
+                name="done"
+                value="true"
+                id="done-true"
+                #{checkedTrue}
+              />
+              <label for="done-true">작업완료</label>
+              <input
+                type="radio"
+                name="done"
+                value="false"
+                id="done-false"
+                #{checkedFalse}
+              />
+              <label for="done-true">작업중</label>
+            </div>
+            <button type="button" class="remove" data-seq="#{seq}">
+              <i class="xi-close"></i>
+            </button>
+          </div>
+          <!-- controlls -->
         </div>
       </li>
     </script>

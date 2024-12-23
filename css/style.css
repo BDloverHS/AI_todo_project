@@ -17,4 +17,8 @@
 .items > .item.on .description {
   display: block;
 }
+
+.items > .item.done {
+  text-decoration: line-through;
+}
 /* 할 일 목록 E */
